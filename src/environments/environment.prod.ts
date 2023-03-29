@@ -1,3 +1,5 @@
 export const environment = {
-  production: true
+  production: true,
+  serverSocketIp: 'localhost',
+  serversocketPort: 65432
 };

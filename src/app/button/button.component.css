@@ -1,0 +1,30 @@
+.btn {
+    width: 100%;
+    padding: 20px 30px;
+    font-size: 20pt;
+    background-color: rgb(99, 46, 2);
+    color: rgb(201, 192, 187);
+    border: none;
+    border-radius: 4px;
+    font-family: 'Bangers', sans-serif;
+  }
+
+.btn:disabled {
+  background-color: rgb(66, 49, 34);
+  color: rgb(138, 137, 136);
+}
+  
+  @media (max-width: 768px) {
+    .btn {
+      padding: 15px 25px;
+      font-size: 18pt;
+    }
+  }
+  
+  @media (max-width: 576px) {
+    .btn {
+      padding: 8px 16px;
+      font-size: 16pt;
+    }
+  }
+  

@@ -1,0 +1,39 @@
+
+.container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+}
+
+.container .card_home {
+    width: 80vw;
+    height: 70vh;
+    background: url(../../assets/background_wood.avif);
+    background-repeat: repeat;
+    background-size: cover;
+    border-radius: 5%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    box-sizing: border-box;
+
+}
+
+.elements {
+    width: 90%;
+    padding: 10%;
+    display: flex;
+    align-items: center;
+    text-align: center;
+    flex-direction: column;
+    box-sizing: border-box;
+    gap: 2vh;
+}
+
+.elements h1 {
+    font-size: 50pt;
+}
+
+

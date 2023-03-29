@@ -1,0 +1,10 @@
+<div class="container">
+    <div class="card_home">
+        <div class="elements">
+            <h1>GAME: {{gameCode}}</h1>
+            <h2>Insert a name</h2>
+            <app-input-custom #appInputCustom type="text" [required]="true"></app-input-custom>
+            <app-button [text]="'Start'" (clickBtn)="startGame()" [disabled]="!appInputCustom.valid"></app-button>
+        </div>
+    </div>
+</div>
