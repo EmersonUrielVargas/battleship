@@ -1,0 +1,107 @@
+
+.container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    background: url(/assets/background_wood.avif);
+    background-repeat: no-repeat;
+    background-size: cover;
+    gap: 3vh;
+}
+
+.card_header {
+    width: 90%;
+    display: flex;
+    align-items: center;
+    text-align: center;
+    flex-direction: column;
+    box-sizing: border-box;
+}
+
+.card_header h1 {
+    font-size: 30pt;
+}
+.card_body{
+    width: 90vw;
+    height: 90vh;
+    display: flex;
+    position: relative;
+    background: url(/assets/battle_Ocean.jpg);
+    background-repeat: repeat;
+    background-size: cover;
+}
+
+.card_battle {
+    width: 100%;
+    height: 100%;
+    border-radius: 2%;
+    display: grid;  
+    grid-template-columns: repeat(var(--board-columns), 1fr);
+    grid-template-rows: repeat(var(--board-rows), 1fr);
+    border-color: var(--color);
+    box-sizing: border-box;
+    z-index: 20;
+}
+
+.card_images {
+    position: absolute;
+    z-index: 10;
+    width: 100%;
+    height: 100%;
+    display: grid;  
+    grid-template-columns: repeat(var(--board-columns), 1fr);
+    grid-template-rows: repeat(var(--board-rows), 1fr);
+}
+
+.image_ship {
+    width: 100%;
+    height: 100%;
+    background-image: url('/assets/ships/ShipXL.png');
+    background-size: 100% 100%;
+    background-position: center;
+    background-repeat: no-repeat;
+    grid-row-start: 2;
+    grid-row-end: 6;
+    grid-column-start: 2;
+    grid-column-end: 2;
+    position: relative;
+}
+
+.card_footer {
+    padding-bottom: 5vh;
+}
+.card_images img {
+    width: auto;
+    height: 50%;
+    position: absolute;
+    border-style: solid;
+    border-color: blue;
+    object-fit: contain;
+    background-repeat: no-repeat;
+    top: 100px; /* 2 filas x 50px por fila */
+    left: 100px; /* 2 columnas x 50px por columna */
+    right: calc(50vw - 350px); /* 7 columnas a la derecha x 50px por columna */
+    bottom: calc(50vh - 350px); 
+    grid-row: 2 / 7;
+    grid-column: 2;
+}
+
+/* .image_container {
+    background-image: url('/assets/ships/ShipXL.png');
+    background-size: contain;
+    background-position: center;
+    background-repeat: no-repeat;
+    grid-row-start: 2;
+    grid-row-end: 6;
+    grid-column-start: 2;
+    grid-column-end: 2;
+    position: relative;
+} */
+
+.elements h2 {
+    font-size: 30pt;
+}
+
+

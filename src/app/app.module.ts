@@ -8,6 +8,8 @@ import { CardComponent } from './card/card.component';
 import { HomeComponent } from './home/home.component';
 import { StartGameComponent } from './start-game/start-game.component';
 import { InputCustomComponent } from './input-custom/input-custom.component';
+import { GameRoomComponent } from './gameRoom/game-room/game-room.component';
+import { CellBlockComponent } from './gameRoom/cell-block/cell-block.component';
 
 @NgModule({
   declarations: [
@@ -16,7 +18,9 @@ import { InputCustomComponent } from './input-custom/input-custom.component';
     CardComponent,
     HomeComponent,
     StartGameComponent,
-    InputCustomComponent
+    InputCustomComponent,
+    GameRoomComponent,
+    CellBlockComponent
   ],
   imports: [
     BrowserModule,

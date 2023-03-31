@@ -3,15 +3,15 @@
     padding: 20px 30px;
     font-size: 20pt;
     background-color: rgb(99, 46, 2);
-    color: rgb(201, 192, 187);
+    color: rgb(255, 255, 255);
     border: none;
     border-radius: 4px;
     font-family: 'Bangers', sans-serif;
   }
 
 .btn:disabled {
-  background-color: rgb(66, 49, 34);
-  color: rgb(138, 137, 136);
+  background-color: rgb(150, 147, 147);
+  color: rgb(110, 108, 108);
 }
   
   @media (max-width: 768px) {

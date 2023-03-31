@@ -18,7 +18,7 @@ export class SocketService  extends Socket{
       url: `http://${environment.serverSocketIp}:${environment.serversocketPort}`,
       options:{
         query: {
-          gameId: localstorageservice.get('gameId')
+          gameId: localstorageservice.get('name')
         }
       }
     });

@@ -1,0 +1,22 @@
+.cell{
+    width: 100%;
+    height: 100%;
+    border-radius: 20%;
+    border-style: none;
+}
+.cell:hover{
+    background-color: rgba(240, 248, 255, 0.541);
+}
+
+.cell:active{
+    border-color: rgb(255, 189, 6);
+    border-style: solid;
+}
+
+.cell_select{
+    width: 100%;
+    height: 100%;
+    border-radius: 20%;
+    border-color: rgb(252, 0, 0);
+    border-style: solid;
+}

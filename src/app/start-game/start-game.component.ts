@@ -1,6 +1,8 @@
 import { Component, OnInit, Input, ViewChild } from '@angular/core';
 import { InputCustomComponent } from '../input-custom/input-custom.component';
 import { SocketService } from '../services/web-socket.service';
+import { Router } from '@angular/router';
+
 
 @Component({
   selector: 'app-start-game',
@@ -10,14 +12,18 @@ import { SocketService } from '../services/web-socket.service';
 export class StartGameComponent implements OnInit {
   @ViewChild('inputCustom') inputCustom!: InputCustomComponent;
   @Input() gameCode = "";
-
-  constructor(private socketService: SocketService) { }
+  
+  //va en parametros del contrsuctor private socketService: SocketService,
+  constructor(
+    private router: Router
+    ) { }
 
   ngOnInit(): void {
   }
 
   startGame(): void{
-    this.socketService.sendMessage(this.inputCustom.value);
+    //this.socketService.sendMessage(this.inputCustom.value);
     console.log("Vamonossss");
+    this.router.navigate(['gameRoom']);
   }
 }
