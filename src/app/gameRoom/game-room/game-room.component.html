@@ -2,15 +2,15 @@
     <div class="card_header">
         <h1>BattleShip multiplayer</h1>
     </div>
-    <div class="card_body">
-        <div class="card_battle" style="--board-rows: {{boardRows}};  --board-columns: {{boardColumns}};">
+    <div class="card_body" style="--board-rows: {{boardRows}};  --board-columns: {{boardColumns}};">
+        <div class="card_battle" >
             <div *ngFor="let cell of board;">
-                <app-cell-block [class]="classCell" [id]="cell.x+'-'+cell.y" (clickCell)="selectPoint(cell)">{{cell.y}}</app-cell-block>
+                <app-cell-block [class]="classCell" [id]="cell.x+'-'+cell.y" (clickCell)="selectPoint(cell.point)">{{cell.y}}</app-cell-block>
             </div>
         </div>
-        <div class="card_images" style="--board-rows: {{boardRows}};  --board-columns: {{boardColumns}};">
+        <div class="card_images" >
             <div *ngFor="let ship of ships;">
-                <div class="image_ship" [id]="'ship'+ship.x+'-'+ship.y" style="--board-rows: {{boardRows}};  --board-columns: {{boardColumns}};"></div>
+                <div class="image_ship" [id]="'ship'+ship.x+'-'+ship.y" ></div>
             </div>
             
         </div>

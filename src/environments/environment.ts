@@ -5,7 +5,7 @@
 export const environment = {
   production: false,
   serverSocketIp: 'localhost',
-  serversocketPort: 5001
+  serversocketPort: 8081
 };
 
 /*

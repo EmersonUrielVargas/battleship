@@ -1,0 +1,13 @@
+<div class="container">
+    <div class="card_home">
+        <div class="elements">
+            <h1>Players in game</h1>
+            <div class="players_list">
+                <div *ngFor="let user of users;">
+                    <h2>{{user.name}}</h2>
+                </div>
+            </div>
+            <app-button [text]="'Start'" (clickBtn)="startBattle()" [disabled]="!isHost"></app-button>
+        </div>
+    </div>
+</div>

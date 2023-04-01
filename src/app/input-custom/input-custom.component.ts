@@ -21,5 +21,9 @@ export class InputCustomComponent implements OnInit {
     return this.value !== '';
   }
 
+  get getValue(): string {
+    return this.value;
+  }
+
 
 }

@@ -32,7 +32,7 @@ export class LocalStorageService {
     }
   }
 
-  clear(key: string){
+  clear(){
     try {
       localStorage.clear();
     } catch (error) {

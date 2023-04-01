@@ -10,6 +10,7 @@ import { StartGameComponent } from './start-game/start-game.component';
 import { InputCustomComponent } from './input-custom/input-custom.component';
 import { GameRoomComponent } from './gameRoom/game-room/game-room.component';
 import { CellBlockComponent } from './gameRoom/cell-block/cell-block.component';
+import { ListUsersComponent } from './list-users/list-users.component';
 
 @NgModule({
   declarations: [
@@ -20,7 +21,8 @@ import { CellBlockComponent } from './gameRoom/cell-block/cell-block.component';
     StartGameComponent,
     InputCustomComponent,
     GameRoomComponent,
-    CellBlockComponent
+    CellBlockComponent,
+    ListUsersComponent
   ],
   imports: [
     BrowserModule,

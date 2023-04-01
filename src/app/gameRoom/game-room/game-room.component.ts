@@ -9,28 +9,54 @@ export class GameRoomComponent implements OnInit {
   board: any[] = [];
   attackPoint = {x:'0', y:'0'};
   boardRows : number = 15;
-  colorBoard: string = '#FFFFFF';
   boardColumns : number = 30;
+  colorBoard: string = '#FFFFFF';
   classCell: string = 'cell'
   cellSelect :any = null;
-  ships: any[] = [];
+  ships: any[] = [0];
 
 
   constructor() { }
   
 
   ngOnInit(): void {
-    this.fillBoard();
+    const data = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+                  0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+                  0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+                  0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+                  0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+                  0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+                  0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+                  0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+                  0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+                  0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+                  0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+                  0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+                  0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,
+                  0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,
+                  0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+                ];
+    this.fillBoard(data);
+    this.getPointsShip();
   }
 
-  fillBoard(){
-
+  fillBoard(data: any[]){
+    let indexData = 0;
     for (let i = 0; i < this.boardRows; i++) {
       for (let j = 0; j < this.boardColumns; j++) {
-        this.board.push({x:i, y:j});
+        this.board.push({
+          type: data[indexData],
+          point:{x:j, y:i}
+        });
+        indexData++;
       }
     }
     console.log(this.board)
+  }
+
+  getPointsShip(){
+    const points = this.board.filter(cell => cell.type != 0);
+    console.log(points);
   }
 
   selectPoint( point: any){

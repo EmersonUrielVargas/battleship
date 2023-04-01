@@ -10,11 +10,12 @@ import { Router } from '@angular/router';
   styleUrls: ['./start-game.component.css']
 })
 export class StartGameComponent implements OnInit {
-  @ViewChild('inputCustom') inputCustom!: InputCustomComponent;
+  @ViewChild('appInputCustom') inputCustom!: InputCustomComponent;
   @Input() gameCode = "";
   
   //va en parametros del contrsuctor private socketService: SocketService,
   constructor(
+    private socketService: SocketService,
     private router: Router
     ) { }
 
@@ -22,8 +23,7 @@ export class StartGameComponent implements OnInit {
   }
 
   startGame(): void{
-    //this.socketService.sendMessage(this.inputCustom.value);
-    console.log("Vamonossss");
-    this.router.navigate(['gameRoom']);
+    this.socketService.sendNameClient(this.inputCustom.getValue);
+    this.router.navigate(['waitRoom']);
   }
 }

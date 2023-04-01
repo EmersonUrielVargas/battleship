@@ -2,56 +2,45 @@ import { Injectable, EventEmitter, Output} from '@angular/core';
 import { Socket } from 'ngx-socket-io';
 import { environment } from 'src/environments/environment';
 import { LocalStorageService } from './local-storage.service';
+import { Observable, Subscriber } from 'rxjs';
 
 
 @Injectable({
   providedIn: 'root'
 })
 export class SocketService  extends Socket{
-  @Output() outputEvent = new EventEmitter<string>();
-  private ws!: WebSocket;
+  @Output() outputEvent: EventEmitter<any> = new EventEmitter();
 
   constructor(
     private localstorageservice: LocalStorageService
   ) { 
     super({
-      url: `http://${environment.serverSocketIp}:${environment.serversocketPort}`,
-      options:{
-        query: {
-          gameId: localstorageservice.get('name')
-        }
-      }
+      url: `http://${environment.serverSocketIp}:${environment.serversocketPort}`
+    });
+
+  }
+  sendNameClient =(nameClient:string)=>{
+    const customer = {
+      id : this.ioSocket.id,
+      name:  nameClient
+    }
+    console.log(customer)
+    this.emitEvent('customer-register', customer)
+  }
+
+  listen = (event_name:string) => {
+    return new Observable((observer: Subscriber<any>) => {
+      this.ioSocket.on(event_name, (data: any) => {
+        observer.next(data);
+      });
     });
   }
 
-  connectToServer() {
-    this.ws = new WebSocket(`ws://${environment.serverSocketIp}:${environment.serversocketPort}`);
-    this.ws.onopen = (event) => {
-      console.log('Connected to server');
-    };
-    this.ws.onmessage = (event) => {
-      console.log('Received message from server:', event.data);
-      this.outputEvent.emit(event.data)
-    };
-    this.ws.onerror = (event) => {
-      console.log('Error connecting to server:', event);
-    };
-    this.ws.onclose = (event) => {
-      console.log('Disconnected from server');
-    };
-  }
-
-  getSocket() {
-    return this.ws;
-  }
-
-  sendMessage(message: string) {
-    if (this.ws.readyState === WebSocket.OPEN) {
-      this.ws.send(message);
-    } else {
-      console.log('WebSocket is not open');
-    }
-  }
+  
+  emitEvent = (event = 'default',payload = {}) => {
+    console.log('emitiendo');
+    this.ioSocket.emit(event, payload);
+}
 }
 
 
