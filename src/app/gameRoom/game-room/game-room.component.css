@@ -23,14 +23,23 @@
 .card_header h1 {
     font-size: 30pt;
 }
+
+.content_game{
+    width: 100%;
+    height: 60%;
+    display: flex;
+    gap: 2%;
+    padding: 2%;
+    box-sizing: border-box;
+}
 .card_body{
-    width: 90vw;
-    height: 90vh;
+    width: 80%;
+    height: 100%;
     display: flex;
     position: relative;
     background: url(/assets/battle_Ocean.jpg);
     background-repeat: repeat;
-    background-size: cover;
+    background-size: 110% 100%;
 }
 
 .card_battle {
@@ -50,55 +59,41 @@
     z-index: 10;
     width: 100%;
     height: 100%;
-    display: grid;  
+    display: grid;
     grid-template-columns: repeat(var(--board-columns), 1fr);
-    grid-template-rows: repeat(var(--board-rows), 1fr);
+    grid-template-rows: repeat(var(--board-rows), 1fr);  
 }
 
 .image_ship {
     width: 100%;
     height: 100%;
-    background-image: url(/assets/ships/ShipXL.png);
+    position: relative;
+    display: flex;
     background-size: 100% 100%;
     background-position: center;
     background-repeat: no-repeat;
-    grid-row-start: 2;
-    grid-row-end: 6;
-    grid-column-start: 2;
-    grid-column-end: 2;
-    position: relative;
+}
+
+.img_ship{
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    border-style: solid;
+    border-color: blue;
+    background-size: contain;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+.card_users{
+    width: 20%;
 }
 
 .card_footer {
     padding-bottom: 5vh;
 }
-.card_images img {
-    width: auto;
-    height: 50%;
-    position: absolute;
-    border-style: solid;
-    border-color: blue;
-    object-fit: contain;
-    background-repeat: no-repeat;
-    top: 100px; /* 2 filas x 50px por fila */
-    left: 100px; /* 2 columnas x 50px por columna */
-    right: calc(50vw - 350px); /* 7 columnas a la derecha x 50px por columna */
-    bottom: calc(50vh - 350px); 
-    grid-row: 2 / 7;
-    grid-column: 2;
-}
 
-/* .image_container {
-    background-image: url('/assets/ships/ShipXL.png');
-    background-size: contain;
-    background-position: center;
-    background-repeat: no-repeat;
-    grid-row-start: 2;
-    grid-row-end: 6;
-    grid-column-start: 2;
-    grid-column-end: 2;
-    position: relative;
-} */
+
+
 
 .elements h2 {
     font-size: 30pt;

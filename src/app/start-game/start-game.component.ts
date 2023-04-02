@@ -2,6 +2,7 @@ import { Component, OnInit, Input, ViewChild } from '@angular/core';
 import { InputCustomComponent } from '../input-custom/input-custom.component';
 import { SocketService } from '../services/web-socket.service';
 import { Router } from '@angular/router';
+import { LocalStorageService } from '../services/local-storage.service';
 
 
 @Component({
@@ -16,6 +17,7 @@ export class StartGameComponent implements OnInit {
   //va en parametros del contrsuctor private socketService: SocketService,
   constructor(
     private socketService: SocketService,
+    private localstorage: LocalStorageService,
     private router: Router
     ) { }
 

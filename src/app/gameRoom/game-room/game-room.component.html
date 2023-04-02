@@ -2,17 +2,34 @@
     <div class="card_header">
         <h1>BattleShip multiplayer</h1>
     </div>
-    <div class="card_body" style="--board-rows: {{boardRows}};  --board-columns: {{boardColumns}};">
-        <div class="card_battle" >
-            <div *ngFor="let cell of board;">
-                <app-cell-block [class]="classCell" [id]="cell.x+'-'+cell.y" (clickCell)="selectPoint(cell.point)">{{cell.y}}</app-cell-block>
+    <div class="content_game">
+        <div class="card_body" style="--board-rows: {{boardRows}};  --board-columns: {{boardColumns}};">
+            <div class="card_battle" >
+                <ng-container *ngFor="let cell of board;">
+                    <app-cell-block [class]="classCell" [id]="cell.point.x+'-'+cell.point.y" (clickCell)="selectPoint(cell.point)">{{cell.point.y}}</app-cell-block>
+                </ng-container>
+            </div>
+            <div class="card_images" >
+                <ng-container *ngFor="let ship of ships;">
+                    <div class="image_ship" [id]="'ship:'+ship.id" 
+                        style="
+                            --row-start: {{ship.startY +1}};
+                            --column-start: {{ship.startX +1}};
+                            --row-end: {{ship.endY +2}};
+                            --column-end: {{ship.endX +2}};
+                            grid-row-start: var(--row-start);
+                            grid-row-end: var(--row-end);
+                            grid-column-start: var(--column-start);
+                            grid-column-end: var(--column-end);
+                            background-image: url({{ship.url}});
+                        "
+                    >
+                    </div>
+                </ng-container>
             </div>
         </div>
-        <div class="card_images" >
-            <div *ngFor="let ship of ships;">
-                <div class="image_ship" [id]="'ship'+ship.x+'-'+ship.y" ></div>
-            </div>
-            
+        <div class="card_users">
+            <app-card-users></app-card-users>
         </div>
     </div>
     <div class="card_footer">

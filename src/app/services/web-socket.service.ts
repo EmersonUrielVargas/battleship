@@ -12,7 +12,7 @@ export class SocketService  extends Socket{
   @Output() outputEvent: EventEmitter<any> = new EventEmitter();
 
   constructor(
-    private localstorageservice: LocalStorageService
+    private localstorage: LocalStorageService
   ) { 
     super({
       url: `http://${environment.serverSocketIp}:${environment.serversocketPort}`
@@ -25,6 +25,7 @@ export class SocketService  extends Socket{
       name:  nameClient
     }
     console.log(customer)
+    this.localstorage.set("userClient", customer)
     this.emitEvent('customer-register', customer)
   }
 
@@ -38,7 +39,7 @@ export class SocketService  extends Socket{
 
   
   emitEvent = (event = 'default',payload = {}) => {
-    console.log('emitiendo');
+    console.log(`Emitiendo evento '${event}' y el payload es: ${JSON.stringify(payload)}`);
     this.ioSocket.emit(event, payload);
 }
 }

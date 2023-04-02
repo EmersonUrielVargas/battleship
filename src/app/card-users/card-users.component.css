@@ -1,0 +1,22 @@
+.players_list {
+    background-color: rgba(250, 235, 215, 0.562);
+    border-radius: 2%;
+    padding: 2%;
+    width: auto;
+    height: 100%;
+    align-items: center;
+    justify-items: center;
+    text-align: center;
+    display: grid;
+    box-sizing: border-box;
+    grid-auto-rows: minmax(30px, auto);
+    grid-auto-rows: 60px;
+
+}
+
+.user h1 {
+    font-size: 50pt;
+}
+.user h2 {
+    font-size: 2.3vw;
+}

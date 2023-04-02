@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { SocketService } from '../services/web-socket.service';
+import { LocalStorageService } from '../services/local-storage.service';
 
 @Component({
   selector: 'app-list-users',
@@ -12,28 +13,30 @@ export class ListUsersComponent implements OnInit {
   users: any[] = [];
   subscriptionCustomers: Subscription = new Subscription(); 
   subscriptionHost: Subscription = new Subscription(); 
+  subscriptionStartGame: Subscription = new Subscription();
   isHost : boolean = false;
 
   constructor(
     private socketService: SocketService,
-    private router: Router
+    private router: Router,
+    private localStorage : LocalStorageService
     ) { }
 
   ngOnInit(): void {
     this.subscriptionCustomers = this.socketService.listen('send-customers').subscribe((data) => {
-      console.log('usuarios conectados')
-      console.log(data)
       this.users = data;
     });
 
-
     this.subscriptionHost = this.socketService.listen('send-host').subscribe((data) => {
-      console.log('usuario host actual')
-      console.log(data)
-      console.log('id reportado')
-      console.log(this.socketService.ioSocket.id)
       this.isHost = (data.id.includes(this.socketService.ioSocket.id));
     });
+
+    this.subscriptionStartGame = this.socketService.listen('send-my-board').subscribe((data) => {
+      this.localStorage.set("myboard", data);
+      console.log('Barcos recibidos')
+      this.router.navigate(['gameRoom']);
+    });
+
   }
 
   ngOnDestroy() {
@@ -42,7 +45,7 @@ export class ListUsersComponent implements OnInit {
   }
 
   startBattle(){
-    this.router.navigate(['gameRoom']);
+    this.socketService.emitEvent('start-game', true);
   }
 
 }

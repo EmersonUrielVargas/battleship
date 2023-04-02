@@ -18,7 +18,12 @@ export class CellBlockComponent implements OnInit {
   }
 
   selectCell(): void{
-    this.clickCell.emit()
+    if(!this.class.includes('cell_invalid')){
+      console.log(this.class)
+      this.clickCell.emit()
+    }else{
+      console.log("no puedes seleccionar tus barcos");
+    }
   }
 
 }
