@@ -18,16 +18,22 @@ export class GameRoomComponent implements OnInit {
   classCell: string = 'cell'
   cellSelect :any = null;
   ships: any[] = [0];
-  users: any[] = [];
+  isTurnAttack: boolean= false;
+  timeTurn: number = 20;
+  timer:any;
+  currentTurn: any;
 
   subscriptionAttack: Subscription = new Subscription(); 
+  subscriptionTurn: Subscription = new Subscription(); 
+
 
 
 
   constructor(
     private localstorage: LocalStorageService,
     private socketService: SocketService,
-  ) { }
+  ) { 
+  }
   
 
   ngOnInit(): void {
@@ -40,10 +46,38 @@ export class GameRoomComponent implements OnInit {
     this.subscriptionAttack = this.socketService.listen('result-attack').subscribe((data) => {
       this.changeCellResultAttack(data);
     });
+
+    this.subscriptionAttack = this.socketService.listen('turn-atack').subscribe((data) => {
+      console.log(`llegando turno ${JSON.stringify(data)}`)
+      this.currentTurn = data;
+      this.isTurnAttack = (data.id.includes(this.socketService.ioSocket.id));
+      this.startTimer()
+    });
   }
 
   ngAfterViewInit() {
     this.blockCellShipsOwn(this.getPointsShip());
+
+  }
+
+  startTimer(){
+    this.timer = setTimeout(() =>{
+      const payload = {
+        user: this.localstorage.get("userClient"),
+        attack: {
+          x: 'N',
+          y: 'N'
+        }
+      }
+      this.timeTurn = 20;
+      this.socketService.emitEvent('send-atack',payload);
+    }, 20000);
+    for (let i = 20; i > 0; i--) {
+      setTimeout(()=>{
+        this.timeTurn = this.timeTurn-1
+      }, 1000)
+    }
+    
   }
 
   fillBoard(data: any[]){
@@ -171,9 +205,15 @@ export class GameRoomComponent implements OnInit {
 
   clearSelection() {
     const selectedCells = document.querySelectorAll('.cell_select');
+    const CellsWater = document.querySelectorAll('.cell.water');
     selectedCells.forEach(cell => {
       cell.classList.replace('cell_select', 'cell');
     });
+    
+    CellsWater.forEach(cell =>{
+      cell.classList.remove('water');
+      console.log(cell)
+    })
   }
 
   blockCellShipsOwn(pointsShips: any[]){
@@ -208,9 +248,10 @@ export class GameRoomComponent implements OnInit {
     this.cellSelect = null;
     const payload = {
       user: this.localstorage.get("userClient"),
-      attack: this.attackPoint,
-      result: true
+      attack: this.attackPoint
     }
+    clearTimeout(this.timer);
+    this.timeTurn=20;
     this.socketService.emitEvent('send-atack',payload);
   }
 

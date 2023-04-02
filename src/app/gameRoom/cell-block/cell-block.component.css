@@ -3,7 +3,18 @@
     height: 100%;
     border-radius: 20%;
     border-style: none;
+    animation: none; 
 }
+
+.cell.water{
+    background-image: url('/assets/Splash.gif');
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-size: 120% 120%;
+    animation: animacionGIF 0.5s; 
+    animation-iteration-count: 1;
+}
+
 .cell:hover{
     background-color: rgba(240, 248, 255, 0.541);
 }
@@ -30,8 +41,11 @@
     background-repeat: no-repeat;
     background-position: center center;
     background-size: 120% 120%;
-    width: 80%;
-    height: 80%;
+    width: 100%;
+    height: 100%;
     border-radius: 20%;
 }
+
+
+
 

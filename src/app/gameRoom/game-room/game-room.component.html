@@ -32,7 +32,16 @@
             <app-card-users></app-card-users>
         </div>
     </div>
-    <div class="card_footer">
-        <app-button [text]="'Confirm attack'" (clickBtn)="attack()" ></app-button>
-    </div>
+    <ng-container *ngIf="isTurnAttack">
+        <div class="card_footer">
+            <app-button [text]="'Confirm attack'" (clickBtn)="attack()" ></app-button>
+            <h2 class="Timer">Time left to attack: {{timeTurn}} </h2>
+        </div>
+    </ng-container>
+    <ng-container *ngIf="!isTurnAttack">
+        <div class="card_wait_turn">
+            <h2 class="waitTurn">Wait your Turn,{{currentTurn.name}} is attacking</h2>
+        </div>
+    </ng-container>
+    
 </div>

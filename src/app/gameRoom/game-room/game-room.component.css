@@ -90,10 +90,23 @@
 
 .card_footer {
     padding-bottom: 5vh;
+    box-sizing: border-box;
+}
+.Timer {
+    color: rgb(255, 255, 255);
+    font-size: 2.5vw;
 }
 
+.container_wait{
+    width: 100%;
+    background-color: rgba(59, 129, 221, 0.726);
+    border-radius: 4%;
+    margin-top: 3%;
+}
 
-
+.container_wait h2 {
+    font-size: 20pt;
+}
 
 .elements h2 {
     font-size: 30pt;

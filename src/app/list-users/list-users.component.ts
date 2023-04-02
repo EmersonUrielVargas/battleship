@@ -10,8 +10,6 @@ import { LocalStorageService } from '../services/local-storage.service';
   styleUrls: ['./list-users.component.css']
 })
 export class ListUsersComponent implements OnInit {
-  users: any[] = [];
-  subscriptionCustomers: Subscription = new Subscription(); 
   subscriptionHost: Subscription = new Subscription(); 
   subscriptionStartGame: Subscription = new Subscription();
   isHost : boolean = false;
@@ -20,12 +18,11 @@ export class ListUsersComponent implements OnInit {
     private socketService: SocketService,
     private router: Router,
     private localStorage : LocalStorageService
-    ) { }
+    ) { 
+    }
 
   ngOnInit(): void {
-    this.subscriptionCustomers = this.socketService.listen('send-customers').subscribe((data) => {
-      this.users = data;
-    });
+    
 
     this.subscriptionHost = this.socketService.listen('send-host').subscribe((data) => {
       this.isHost = (data.id.includes(this.socketService.ioSocket.id));
@@ -40,7 +37,6 @@ export class ListUsersComponent implements OnInit {
   }
 
   ngOnDestroy() {
-    this.subscriptionCustomers.unsubscribe();
     this.subscriptionHost.unsubscribe();
   }
 

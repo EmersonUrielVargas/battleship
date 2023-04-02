@@ -9,18 +9,21 @@ import { LocalStorageService } from '../services/local-storage.service';
   styleUrls: ['./card-users.component.css']
 })
 export class CardUsersComponent implements OnInit {
-  users: any[] = [{name:"emerson"}, {name:"manuel"}, {name:"William"}, {name:"cristhian"}];
+  users: any[] = [];
   subscriptionCustomers: Subscription = new Subscription(); 
   isHost : boolean = false;
 
   constructor(
     private socketService: SocketService,
     private localStorage : LocalStorageService
-    ) { }
+    ) { 
+      this.users = this.localStorage.get("users")
+    }
 
   ngOnInit(): void {
     this.subscriptionCustomers = this.socketService.listen('send-customers').subscribe((data) => {
       this.users = data;
+      this.localStorage.set("users",data)
     });
   }
 
