@@ -2,6 +2,9 @@
     <ng-container *ngFor="let user of users;">
         <div class="user">
             <h2 class="name_user">{{user.name}}</h2>
+            <ng-container *ngIf="user.name === userNameTurn">
+                <div class="imageTurn"></div>
+            </ng-container>
         </div>
         
     </ng-container>

@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { LocalStorageService } from 'src/app/services/local-storage.service';
 import { SocketService } from 'src/app/services/web-socket.service';
+import { Router } from '@angular/router';
+
 
 
 @Component({
@@ -16,21 +18,27 @@ export class GameRoomComponent implements OnInit {
   boardColumns : number = 30;
   colorBoard: string = '#FFFFFF';
   classCell: string = 'cell'
-  cellSelect :any = null;
+  cellSelect :any = null;  
   ships: any[] = [0];
   isTurnAttack: boolean= false;
   timeTurn: number = 20;
   timer:any;
-  currentTurn: any;
+  currentTurn: any ={name:''};
+  showModal = false;
+  modalBodyWinner= false; 
 
   subscriptionAttack: Subscription = new Subscription(); 
   subscriptionTurn: Subscription = new Subscription(); 
+  subscriptionWinner: Subscription = new Subscription(); 
+  subscriptionLoser: Subscription = new Subscription(); 
+
 
 
 
 
   constructor(
     private localstorage: LocalStorageService,
+    private router: Router,
     private socketService: SocketService,
   ) { 
   }
@@ -39,19 +47,38 @@ export class GameRoomComponent implements OnInit {
   ngOnInit(): void {
     const data = this.localstorage.get("myboard");
     this.fillBoard(data);
-    const pointsShips = this.getAdjacents(this.getPointsShip());
+    const pointsValid = this.getPointsShip()
+    console.log(pointsValid)
+    const pointsShips = this.getAdjacents(pointsValid);
+    console.log(pointsShips)
     this.ships = this.mappingShips(pointsShips);
+    console.log(this.ships)
+
     
 
     this.subscriptionAttack = this.socketService.listen('result-attack').subscribe((data) => {
       this.changeCellResultAttack(data);
     });
 
-    this.subscriptionAttack = this.socketService.listen('turn-atack').subscribe((data) => {
-      console.log(`llegando turno ${JSON.stringify(data)}`)
+    this.subscriptionLoser = this.socketService.listen('send-loser').subscribe((data) => {
+      this.modalBodyWinner = false;
+      this.showModal = true;
+    });
+
+    this.subscriptionWinner = this.socketService.listen('send-winner').subscribe((data) => {
       this.currentTurn = data;
-      this.isTurnAttack = (data.id.includes(this.socketService.ioSocket.id));
-      this.startTimer()
+      if ((data.id === this.socketService.ioSocket.id)) {
+        this.modalBodyWinner = true;
+        this.showModal = true;
+      }
+    });
+
+    this.subscriptionAttack = this.socketService.listen('turn-atack').subscribe((data) => {
+      this.currentTurn = data;
+      this.isTurnAttack = (data.id === this.socketService.ioSocket.id);
+      if (this.isTurnAttack) {
+        this.startTimer()
+      }
     });
   }
 
@@ -61,23 +88,23 @@ export class GameRoomComponent implements OnInit {
   }
 
   startTimer(){
-    this.timer = setTimeout(() =>{
-      const payload = {
-        user: this.localstorage.get("userClient"),
-        attack: {
-          x: 'N',
-          y: 'N'
+    this.timeTurn = 20;
+    let counterTimer = () => {
+      this.timeTurn -= 1;
+      if (this.timeTurn <= 0 && this.isTurnAttack) {
+        const payload = {
+          user: this.localstorage.get("userClient"),
+          attack: {
+            x: 'N',
+            y: 'N'
+          }
         }
+        this.socketService.emitEvent('send-atack',payload);
+      } else if (this.isTurnAttack) {
+        setTimeout(counterTimer, 1000);
       }
-      this.timeTurn = 20;
-      this.socketService.emitEvent('send-atack',payload);
-    }, 20000);
-    for (let i = 20; i > 0; i--) {
-      setTimeout(()=>{
-        this.timeTurn = this.timeTurn-1
-      }, 1000)
-    }
-    
+    };
+    setTimeout(counterTimer, 1000);
   }
 
   fillBoard(data: any[]){
@@ -97,7 +124,8 @@ export class GameRoomComponent implements OnInit {
   }
 
   getAdjacents(data: any[]): any{
-    let validPoints = [...data];
+    let validPoints = [...data]
+    console.log([...validPoints])
     let groupShips:any[] = [];
 
     let adjacentGroup: any[] = [];
@@ -114,35 +142,42 @@ export class GameRoomComponent implements OnInit {
           { x: cell.point.x, y: cell.point.y + 1 } // Abajo
         ];
       }
+
+      console.log(`esta celda se esta validando ${cell.point.x} - ${cell.point.y}`)
+      console.log(Object.assign({}, adjacentGroup))
       
       const ActualList = adjacentGroup.find(({point:{x,y}}) => {
         const isValidX = cell.point.x === x;
         const isValidY = cell.point.y === y;
         return isValidX && isValidY;
       });
+
       if (adjacentGroup.length !== 0) {
-        if (ActualList === undefined) {
-          groupShips.push([...adjacentGroup]);
+        if ((ActualList === undefined)) {
+          if (adjacentGroup.length > 1) {
+            groupShips.push([...adjacentGroup]);
+          }
           adjacentGroup = [];
           adjacentGroup = [cell];
         }
       }else{
         adjacentGroup = [cell];
       }
-      for (let j = i + 1; j < data.length; j++) {
-        let adjacentObj = {...data[j]};
+      for (let j = i; j < validPoints.length; j++) {
+        let adjacentObj = {...validPoints[j]};
+        console.log(`esto es dataActual ${adjacentObj.point.x} -- ${adjacentObj.point.y}`)
         const isValidAdjacent = adjacentPositions.find(({ x, y }) => {
           const isValidX = adjacentObj.point.x === x;
           const isValidY = adjacentObj.point.y === y;
           return isValidX && isValidY;
         });
         if (isValidAdjacent) {
+          console.log(`esto se wa a agregar ${adjacentObj.point.x} - ${adjacentObj.point.y}`)
           adjacentGroup.push(adjacentObj);
-          i = j; // saltar al siguiente objeto en la lista principal
         }
       }
 
-      if (i === (validPoints.length -1)) {
+      if ((i === (validPoints.length -1)) && adjacentGroup.length >1) {
         groupShips.push([...adjacentGroup]);
       }
       
@@ -250,8 +285,7 @@ export class GameRoomComponent implements OnInit {
       user: this.localstorage.get("userClient"),
       attack: this.attackPoint
     }
-    clearTimeout(this.timer);
-    this.timeTurn=20;
+    
     this.socketService.emitEvent('send-atack',payload);
   }
 
@@ -259,6 +293,12 @@ export class GameRoomComponent implements OnInit {
     const ranDig = Math.floor(Math.random() * (7)) + 1;
     const url = `/assets/ships/Ship${orientation}${ranDig}.png`
     return url
+  }
+
+
+  closeModal() {
+    this.showModal = false;
+    this.router.navigate(['']);
   }
 
 }

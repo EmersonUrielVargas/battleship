@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { SocketService } from '../services/web-socket.service';
 import { LocalStorageService } from '../services/local-storage.service';
@@ -12,6 +12,7 @@ export class CardUsersComponent implements OnInit {
   users: any[] = [];
   subscriptionCustomers: Subscription = new Subscription(); 
   isHost : boolean = false;
+  @Input() userNameTurn='';
 
   constructor(
     private socketService: SocketService,

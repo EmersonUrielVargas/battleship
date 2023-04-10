@@ -29,7 +29,7 @@
             </div>
         </div>
         <div class="card_users">
-            <app-card-users></app-card-users>
+            <app-card-users [userNameTurn]="currentTurn.name"></app-card-users>
         </div>
     </div>
     <ng-container *ngIf="isTurnAttack">
@@ -43,5 +43,7 @@
             <h2 class="waitTurn">Wait your Turn,{{currentTurn.name}} is attacking</h2>
         </div>
     </ng-container>
-    
+
+    <app-modal [visible]="showModal"  [modalBodyWinner]="modalBodyWinner" (close)="closeModal()">
+    </app-modal>
 </div>

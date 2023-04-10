@@ -1,0 +1,29 @@
+<div class="modal" *ngIf="visible">
+    <div class="modal-content">
+        <div class="custom-modal-header" *ngIf="header">
+            <h5 class="custom-modal-title">Este es el titulo</h5>
+            <button type="button" class="close" aria-label="Close" (click)="closeModal()">
+            <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+        <div class="custom-modal-body">
+            <ng-container *ngIf="modalBodyWinner">
+                <div class="modal-body" style="
+                        background-image: url(/assets/background_winner.avif);
+                    ">
+                    <h1>Congratulations, you are the winner</h1>
+                </div>
+            </ng-container>
+            <ng-container *ngIf="!modalBodyWinner">
+                <div class="modal-body" style="
+                        background-image: url(/assets/background_loser.avif);
+                    ">
+                    <h1>Sorry, your ships are sunk</h1>
+                </div>
+            </ng-container>
+        </div>
+        <div class="custom-modal-footer">
+            <app-button [text]="'Go to Home'" (clickBtn)="closeModal()" ></app-button>
+        </div>
+    </div>
+</div>

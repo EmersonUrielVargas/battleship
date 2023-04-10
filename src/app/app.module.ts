@@ -12,6 +12,7 @@ import { GameRoomComponent } from './gameRoom/game-room/game-room.component';
 import { CellBlockComponent } from './gameRoom/cell-block/cell-block.component';
 import { ListUsersComponent } from './list-users/list-users.component';
 import { CardUsersComponent } from './card-users/card-users.component';
+import { ModalComponent } from './modal/modal.component';
 
 @NgModule({
   declarations: [
@@ -24,7 +25,8 @@ import { CardUsersComponent } from './card-users/card-users.component';
     GameRoomComponent,
     CellBlockComponent,
     ListUsersComponent,
-    CardUsersComponent
+    CardUsersComponent,
+    ModalComponent
   ],
   imports: [
     BrowserModule,
