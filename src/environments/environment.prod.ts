@@ -1,5 +1,5 @@
 export const environment = {
   production: true,
-  serverSocketIp: 'localhost',
-  serversocketPort: 65432
+  serverSocketIp: 'https://server-battle-ship.fly.dev/',
+  serversocketPort: 8080
 };

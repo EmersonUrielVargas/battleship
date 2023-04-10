@@ -4,8 +4,10 @@
 
 export const environment = {
   production: false,
-  serverSocketIp: 'localhost',
-  serversocketPort: 8081
+  // serverSocketIp: 'localhost',
+  // serversocketPort: 8081
+  serverSocketIp: 'https://server-battle-ship.fly.dev/',
+  serversocketPort: 8080
 };
 
 /*
