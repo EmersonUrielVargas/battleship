@@ -15,7 +15,7 @@ export class SocketService  extends Socket{
     private localstorage: LocalStorageService
   ) { 
     super({
-      url: `http://${environment.serverSocketIp}:${environment.serversocketPort}`
+      url: `https://${environment.serverSocketIp}:${environment.serversocketPort}`
     });
 
   }
