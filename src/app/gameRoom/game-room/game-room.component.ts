@@ -298,6 +298,7 @@ export class GameRoomComponent implements OnInit {
 
   closeModal() {
     this.showModal = false;
+    this.localstorage.remove("users")
     this.router.navigate(['']);
   }
 

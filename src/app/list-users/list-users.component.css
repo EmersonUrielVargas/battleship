@@ -47,3 +47,18 @@
     background-color: rgba(59, 129, 221, 0.726);
     border-radius: 4%;
 }
+
+.message_Container{
+    width: 90%;
+    padding: 10%;
+    display: flex;
+    align-items: center;
+    text-align: center;
+    flex-direction: column;
+    box-sizing: border-box;
+    gap: 2vh;
+}
+
+.message_Container h1 {
+    font-size: 50pt;
+}

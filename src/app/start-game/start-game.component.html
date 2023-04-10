@@ -1,10 +1,19 @@
 <div class="container">
     <div class="card_home">
-        <div class="elements">
-            <h1>GAME: {{gameCode}}</h1>
-            <h2>Insert a name</h2>
-            <app-input-custom #appInputCustom type="text" [required]="true"></app-input-custom>
-            <app-button [text]="'Start'" (clickBtn)="startGame()" [disabled]="!appInputCustom.valid"></app-button>
-        </div>
+        <ng-container *ngIf="isAccessBlock">
+            <div class="message_Container">
+                <h1>!!!Ops, the game has already started, come back soon!!!</h1>
+                <app-button [text]="'Go to Home'" (clickBtn)="GoToHome()" [disabled]="false"></app-button>
+            </div>
+        </ng-container>
+
+        <ng-container *ngIf="!isAccessBlock">
+            <div class="elements">
+                <h2>Insert a name</h2>
+                <app-input-custom #appInputCustom type="text" [required]="true"></app-input-custom>
+                <app-button [text]="'Start'" (clickBtn)="startGame()" [disabled]="!appInputCustom.valid"></app-button>
+            </div>
+        </ng-container>
+       
     </div>
 </div>

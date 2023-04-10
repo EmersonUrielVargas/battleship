@@ -1,19 +1,27 @@
 <div class="container">
     <div class="card_home">
-        <div class="elements">
-            <h1>Players in game</h1>
-            <div class="container_users">
-                <app-card-users></app-card-users>
+        <ng-container *ngIf="isAccessBlock">
+            <div class="message_Container">
+                <h1>!!!Ops, the game has already started, come back soon!!!</h1>
+                <app-button [text]="'Go to Home'" (clickBtn)="GoToHome()" [disabled]="false"></app-button>
             </div>
-            <ng-container *ngIf="isHost">
-                <app-button [text]="'Start'" (clickBtn)="startBattle()" [disabled]="!isHost"></app-button>
-            </ng-container>
-            <ng-container *ngIf="!isHost">
-                <div class="container_wait">
-                    <h2 class="text_waiting">Waiting a Host start a game ... </h2>
+        </ng-container>
+        <ng-container *ngIf="!isAccessBlock">
+            <div class="elements">
+                <h1>Players in game</h1>
+                <div class="container_users">
+                    <app-card-users></app-card-users>
                 </div>
-            </ng-container>
-            
-        </div>
+                <ng-container *ngIf="isHost">
+                    <app-button [text]="'Start'" (clickBtn)="startBattle()" [disabled]="!isHost"></app-button>
+                </ng-container>
+                <ng-container *ngIf="!isHost">
+                    <div class="container_wait">
+                        <h2 class="text_waiting">Waiting a Host start a game ... </h2>
+                    </div>
+                </ng-container>
+                
+            </div>
+        </ng-container>
     </div>
 </div>
